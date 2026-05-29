@@ -23,6 +23,7 @@ export function HeroSection() {
       return
     }
     setError("")
+    localStorage.setItem("last_analyzed_address", cleanAddr)
     router.push(`/analyze?address=${cleanAddr}`)
   }
 
@@ -477,6 +478,7 @@ export function HeroSection() {
         <div className="w-full max-w-lg mt-8 relative z-25">
           <form onSubmit={handleSubmit} className="relative flex items-center w-full">
             <input
+              id="wallet-search-input"
               type="text"
               placeholder="Paste Injective wallet address (inj1...)"
               value={address}
@@ -496,34 +498,6 @@ export function HeroSection() {
           {error && (
             <p className="text-destructive text-xs font-semibold mt-2 pl-4 text-left">{error}</p>
           )}
-          <div className="flex items-center justify-center gap-2 mt-4 text-xs">
-            <span className="text-muted-foreground">Or inspect a sample trader:</span>
-            <button
-              type="button"
-              onClick={() => {
-                const demo = "inj1qpzk5x3r4z7ux2wzcy5w2vhl9u7t08e6j0fqqt"
-                setAddress(demo)
-                setError("")
-                router.push(`/analyze?address=${demo}`)
-              }}
-              className="text-primary hover:underline font-semibold bg-transparent border-none cursor-pointer"
-            >
-              Swing Sniper Demo
-            </button>
-            <span className="text-muted-foreground/30">•</span>
-            <button
-              type="button"
-              onClick={() => {
-                const demo = "inj1volatilitysurfer0000000000000000surfer"
-                setAddress(demo)
-                setError("")
-                router.push(`/analyze?address=${demo}`)
-              }}
-              className="text-primary hover:underline font-semibold bg-transparent border-none cursor-pointer"
-            >
-              Volatility Surfer Demo
-            </button>
-          </div>
         </div>
       </div>
     </section>

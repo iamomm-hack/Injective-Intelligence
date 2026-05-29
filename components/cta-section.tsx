@@ -1,7 +1,29 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export function CTASection() {
+  const router = useRouter()
+
+  const handleLaunchClick = () => {
+    const connected = localStorage.getItem("connected_injective_address")
+    const lastSearched = localStorage.getItem("last_analyzed_address")
+    const target = (connected && connected.startsWith("inj1")) ? connected : lastSearched
+    if (target && target.startsWith("inj1") && target.length === 42) {
+      router.push(`/wallet/${target}`)
+    } else {
+      router.push("/")
+      setTimeout(() => {
+        const input = document.getElementById("wallet-search-input")
+        if (input) {
+          input.focus()
+          input.scrollIntoView({ behavior: "smooth", block: "center" })
+        }
+      }, 150)
+    }
+  }
+
   return (
     <section className="w-full pt-20 md:pt-60 lg:pt-60 pb-10 md:pb-20 px-5 relative flex flex-col justify-center items-center overflow-visible">
       <div className="absolute inset-0 top-[-90px]">
@@ -110,14 +132,13 @@ export function CTASection() {
             Analyze your trading behavior patterns, check your risk scoring, and unlock premium behavioral reports.
           </p>
         </div>
-        <Link href="/analyze?address=inj1qpzk5x3r4z7ux2wzcy5w2vhl9u7t08e6j0fqqt">
-          <Button
-            className="px-[30px] py-2 bg-primary text-primary-foreground text-base font-medium leading-6 rounded-[99px] shadow-[0_0_15px_rgba(120,252,214,0.3)] hover:bg-primary/90 transition-all duration-200"
-            size="lg"
-          >
-            Launch Demo Dashboard
-          </Button>
-        </Link>
+        <Button
+          onClick={handleLaunchClick}
+          className="px-[30px] py-2 bg-primary text-primary-foreground text-base font-medium leading-6 rounded-[99px] shadow-[0_0_15px_rgba(120,252,214,0.3)] hover:bg-primary/90 transition-all duration-200"
+          size="lg"
+        >
+          Launch Dashboard
+        </Button>
       </div>
     </section>
   )

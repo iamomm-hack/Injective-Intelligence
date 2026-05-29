@@ -13,7 +13,7 @@ interface BentoCardProps {
 }
 
 const BentoCard = ({ title, description, Component }: BentoCardProps) => (
-  <div className="overflow-hidden rounded-2xl border border-white/20 flex flex-col justify-start items-start relative">
+  <div className="overflow-hidden rounded-2xl border border-white/20 hover:border-primary/45 flex flex-col justify-start items-start relative transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_30px_rgba(120,252,214,0.06)] group">
     {/* Background with blur effect */}
     <div
       className="absolute inset-0 rounded-2xl"

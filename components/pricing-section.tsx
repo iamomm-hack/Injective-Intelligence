@@ -22,7 +22,7 @@ export function PricingSection() {
       ],
       buttonText: "Get Started",
       buttonClass:
-        "bg-zinc-300 shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] outline outline-0.5 outline-[#1e29391f] outline-offset-[-0.5px] text-gray-800 text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-zinc-400",
+        "bg-transparent border border-white/20 hover:border-primary/50 text-white hover:bg-white/5",
     },
     {
       name: "Pro",
@@ -40,7 +40,7 @@ export function PricingSection() {
       ],
       buttonText: "Join now",
       buttonClass:
-        "bg-primary-foreground shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] text-primary text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-primary-foreground/90",
+        "bg-[#050706] text-primary hover:bg-[#0c0f0d] border border-[#050706] hover:border-primary/30 shadow-md",
       popular: true,
     },
     {
@@ -57,7 +57,7 @@ export function PricingSection() {
       ],
       buttonText: "Talk to Sales",
       buttonClass:
-        "bg-secondary shadow-[0px_1px_1px_-0.5px_rgba(16,24,40,0.20)] text-secondary-foreground text-shadow-[0px_1px_1px_rgba(16,24,40,0.08)] hover:bg-secondary/90",
+        "bg-primary text-[#050706] hover:bg-primary/95 shadow-[0_0_15px_rgba(120,252,214,0.2)]",
     },
   ]
 
@@ -162,11 +162,11 @@ export function PricingSection() {
                   </div>
                 </div>
               </div>
-              <Button
-                className={`self-stretch px-5 py-2.5 rounded-[40px] flex justify-center items-center font-bold text-sm ${plan.buttonClass}`}
+              <button
+                className={`self-stretch px-5 py-2.5 rounded-[40px] flex justify-center items-center font-bold text-sm h-11 transition-all hover:-translate-y-0.5 ${plan.buttonClass}`}
               >
                 {plan.buttonText}
-              </Button>
+              </button>
             </div>
 
             {/* Bottom Features List */}
