@@ -1,168 +1,41 @@
-import type React from "react"
-import { Search } from "lucide-react"
+"use client"
 
-interface McpConnectivityIllustrationProps {
-  className?: string
-}
+import React from "react"
+import { Users, Search, ArrowUpRight } from "lucide-react"
 
-const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = ({ className = "" }) => {
-  // Integration data with new SVG paths
-  const integrations = [
-    { name: "Figma", icon: "/images/mcp-integrations/figma.svg", installed: true },
-    { name: "Shadcn UI", icon: "/images/mcp-integrations/shadcn.svg" },
-    { name: "Next.js", icon: "/images/mcp-integrations/nextjs.svg", installed: true },
-    { name: "Tailwind CSS", icon: "/images/mcp-integrations/tailwind-css.svg" },
-    { name: "Resend", icon: "/images/mcp-integrations/resend.svg", installed: true },
-    { name: "React", icon: "/images/mcp-integrations/react.svg" },
-  ]
-
+export default function MCPConnectivityIllustration() {
   return (
-    <div
-      className={`w-full h-full flex items-center justify-center p-4 relative ${className}`}
-      role="img"
-      aria-label="MCP Connectivity component showcasing installed integrations list"
-    >
-      {/* Main Message Box */}
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, calc(-50% + 24px))",
-          width: "345px",
-          height: "277px",
-          background: "linear-gradient(180deg, hsl(var(--background)) 0%, transparent 100%)",
-          backdropFilter: "blur(16px)",
-          borderRadius: "9.628px",
-          border: "0.802px solid hsl(var(--border))",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            width: "100%",
-          }}
-        >
-          {/* Search Header */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12.837px",
-              padding: "8.826px 12.837px",
-              borderBottom: "0.802px solid hsl(var(--border))",
-              width: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <div
-              style={{
-                width: "14.442px",
-                height: "14.442px",
-                position: "relative",
-                flexShrink: 0,
-              }}
-            >
-              <Search className="w-full h-full text-muted-foreground" />
-            </div>
-            <span
-              style={{
-                fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                fontSize: "12.837px",
-                lineHeight: "19.256px",
-                color: "hsl(var(--muted-foreground))",
-                fontWeight: 400,
-                whiteSpace: "nowrap",
-              }}
-            >
-              Search for servers
-            </span>
-          </div>
-          {/* Integration List */}
-          {integrations.map((integration, index) => (
-            <div
-              key={integration.name}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "8.826px 12.837px",
-                borderBottom: index < integrations.length - 1 ? "0.479px solid hsl(var(--border))" : "none",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12.837px",
-                }}
-              >
-                <div
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img
-                    src={integration.icon || "/placeholder.svg"}
-                    alt={integration.name}
-                    className="w-full h-full object-contain opacity-70 grayscale" // Apply opacity and grayscale
-                  />
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                    fontSize: "12.837px",
-                    lineHeight: "19.256px",
-                    color: "hsl(var(--muted-foreground))",
-                    fontWeight: 400,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {integration.name}
-                </span>
-              </div>
-              {integration.installed && (
-                <div
-                  style={{
-                    background: "hsl(var(--primary) / 0.08)",
-                    padding: "1.318px 5.272px",
-                    borderRadius: "3.295px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-                      fontSize: "9.583px",
-                      lineHeight: "15.333px",
-                      color: "hsl(var(--primary))",
-                      fontWeight: 500,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    Installed
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+    <div className="w-full h-full p-6 flex flex-col justify-center items-center">
+      <div className="w-full max-w-[320px] bg-[#050706]/90 border border-primary/20 rounded-xl p-4 font-mono text-2xs space-y-4 shadow-xl">
+        
+        {/* Search header mock */}
+        <div className="flex items-center gap-2 bg-[#0b0e0d] border border-white/5 p-2 rounded-lg">
+          <Search className="h-3.5 w-3.5 text-zinc-500" />
+          <span className="text-zinc-400 select-all truncate">inj1qpzk5x3r...0fqqt</span>
         </div>
+
+        {/* Similar matches */}
+        <div className="space-y-2">
+          <div className="text-3xs text-zinc-500 uppercase tracking-wider">Top DNA Matches</div>
+          
+          <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 p-2 rounded-lg">
+            <div className="space-y-0.5">
+              <span className="text-zinc-300 font-bold block">inj1whale...23x4</span>
+              <span className="text-[9px] text-primary uppercase">Whale Follower</span>
+            </div>
+            <span className="text-emerald-400 font-bold">94% MATCH</span>
+          </div>
+
+          <div className="flex items-center justify-between bg-white/[0.02] border border-white/5 p-2 rounded-lg">
+            <div className="space-y-0.5">
+              <span className="text-zinc-300 font-bold block">inj1sniper...890k</span>
+              <span className="text-[9px] text-primary uppercase">Swing Sniper</span>
+            </div>
+            <span className="text-emerald-400 font-bold">89% MATCH</span>
+          </div>
+        </div>
+
       </div>
     </div>
   )
 }
-
-export default McpConnectivityIllustration
