@@ -1,9 +1,31 @@
-import React from "react"
+"use client"
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Header } from "./header"
+import { Search, BrainCircuit } from "lucide-react"
 import Link from "next/link"
 
 export function HeroSection() {
+  const [address, setAddress] = useState("")
+  const [error, setError] = useState("")
+  const router = useRouter()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const cleanAddr = address.trim()
+    if (!cleanAddr.startsWith("inj1")) {
+      setError("Wallet address must start with 'inj1'")
+      return
+    }
+    if (cleanAddr.length !== 42) {
+      setError("Injective wallet address must be exactly 42 characters")
+      return
+    }
+    setError("")
+    router.push(`/analyze?address=${cleanAddr}`)
+  }
+
   return (
     <section
       className="flex flex-col items-center text-center relative mx-auto rounded-2xl overflow-hidden my-6 py-0 px-4
@@ -437,20 +459,73 @@ export function HeroSection() {
         <Header />
       </div>
 
-      <div className="relative z-10 space-y-4 md:space-y-5 lg:space-y-6 mb-6 md:mb-7 lg:mb-9 max-w-md md:max-w-[500px] lg:max-w-[588px] mt-16 md:mt-[120px] lg:mt-[160px] px-4">
-        <h1 className="text-foreground text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight">
-          Unleash the Power of AI Agents
-        </h1>
-        <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-lg mx-auto">
-          Accelerate your development workflow with intelligent AI agents that write, review, and optimize your code.
-        </p>
-      </div>
+      <div className="relative z-10 space-y-4 md:space-y-5 lg:space-y-6 mb-6 md:mb-7 lg:mb-9 max-w-2xl mt-16 md:mt-[100px] lg:mt-[140px] px-4 flex flex-col items-center">
+        {/* Glow Badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-xs text-primary font-medium uppercase tracking-wider mb-2 animate-pulse-glow">
+          <BrainCircuit className="h-3 w-3" />
+          First AI Behavioral Engine on Injective
+        </div>
 
-      <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer">
-        <Button className="relative z-10 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-3 rounded-full font-medium text-base shadow-lg ring-1 ring-white/10">
-          Signup for free
-        </Button>
-      </Link>
+        <h1 className="text-foreground text-4xl md:text-5xl lg:text-7xl font-bold leading-tight tracking-tight uppercase glow-text">
+          INJECTIVE INTELLIGENCE
+        </h1>
+        <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-xl mx-auto">
+          Understand the psychology behind the transactions. Parse any Injective wallet to reveal trading archetypes, cognitive scorecards, and hidden behavior patterns.
+        </p>
+
+        {/* Search Container */}
+        <div className="w-full max-w-lg mt-8 relative z-25">
+          <form onSubmit={handleSubmit} className="relative flex items-center w-full">
+            <input
+              type="text"
+              placeholder="Paste Injective wallet address (inj1...)"
+              value={address}
+              onChange={(e) => {
+                setAddress(e.target.value)
+                if (error) setError("")
+              }}
+              className="w-full bg-[#0a0d0c]/85 text-foreground border border-white/15 focus:border-primary/60 rounded-full py-4 pl-6 pr-16 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary/45 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 bg-primary hover:bg-primary/90 text-primary-foreground h-11 w-11 rounded-full flex items-center justify-center transition-all shadow-[0_0_10px_rgba(120,252,214,0.3)] hover:scale-105"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </form>
+          {error && (
+            <p className="text-destructive text-xs font-semibold mt-2 pl-4 text-left">{error}</p>
+          )}
+          <div className="flex items-center justify-center gap-2 mt-4 text-xs">
+            <span className="text-muted-foreground">Or inspect a sample trader:</span>
+            <button
+              type="button"
+              onClick={() => {
+                const demo = "inj1qpzk5x3r4z7ux2wzcy5w2vhl9u7t08e6j0fqqt"
+                setAddress(demo)
+                setError("")
+                router.push(`/analyze?address=${demo}`)
+              }}
+              className="text-primary hover:underline font-semibold bg-transparent border-none cursor-pointer"
+            >
+              Swing Sniper Demo
+            </button>
+            <span className="text-muted-foreground/30">•</span>
+            <button
+              type="button"
+              onClick={() => {
+                const demo = "inj1volatilitysurfer0000000000000000surfer"
+                setAddress(demo)
+                setError("")
+                router.push(`/analyze?address=${demo}`)
+              }}
+              className="text-primary hover:underline font-semibold bg-transparent border-none cursor-pointer"
+            >
+              Volatility Surfer Demo
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
