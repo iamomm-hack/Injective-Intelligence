@@ -65,6 +65,7 @@ export interface BehaviorProfile {
   similarTraders: SimilarTrader[]
   isSimulated?: boolean
   isTestnet?: boolean
+  injBalance?: number
 }
 
 // Simple seedable hash function
@@ -201,7 +202,7 @@ export async function generateBehaviorProfile(rawAddress: string): Promise<Behav
     
     // If balance is 0, query Testnet!
     if (realBalanceInj === 0) {
-      const testBalRes = await fetch(`https://testnet.lcd.injective.network/cosmos/bank/v1beta1/balances/${address}`, { cache: "no-store" })
+      const testBalRes = await fetch(`https://testnet.sentry.lcd.injective.network/cosmos/bank/v1beta1/balances/${address}`, { cache: "no-store" })
       if (testBalRes.ok) {
         const testBalData = await testBalRes.json()
         const injBal = testBalData.balances?.find((b: any) => b.denom === "inj")
@@ -592,7 +593,8 @@ export async function generateBehaviorProfile(rawAddress: string): Promise<Behav
     },
     trades,
     similarTraders,
-    isSimulated: realTrades.length === 0,
+    isSimulated: realTrades.length === 0 && realBalanceInj === 0,
     isTestnet: isTestnet,
+    injBalance: realBalanceInj,
   }
 }
