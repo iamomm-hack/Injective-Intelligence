@@ -82,7 +82,12 @@ Check your own behavior report card on Injective Intelligence:`
   let rarity = "UNCOMMON"
   let rarityColor = "text-primary border-primary/30"
 
-  if (profile.overallScore >= 85) {
+  if (profile.overallScore === 0) {
+    rarity = "DORMANT WALLET"
+    cardColor = "from-zinc-500/20 via-zinc-800/5 to-background border-zinc-500/30"
+    shadowGlow = "shadow-[0_0_20px_rgba(113,113,122,0.1)]"
+    rarityColor = "text-zinc-400 border-zinc-500/30 bg-zinc-500/5"
+  } else if (profile.overallScore >= 85) {
     rarity = "MYTHICAL LEGEND"
     cardColor = "from-purple-500/20 via-indigo-500/5 to-background border-purple-500/30"
     shadowGlow = "shadow-[0_0_40px_rgba(168,85,247,0.2)]"

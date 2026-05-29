@@ -226,7 +226,7 @@ export async function generateBehaviorProfile(rawAddress: string): Promise<Behav
 
     // If empty mainnet history, query Testnet!
     if (!txData || !txData.data || txData.data.length === 0) {
-      txRes = await fetch(`https://testnet.explorer-api.injective.network/api/v1/account/txs/${address}?limit=25`, { cache: "no-store" })
+      txRes = await fetch(`https://testnet.sentry.exchange.grpc-web.injective.network/api/explorer/v1/account/txs/${address}?limit=25`, { cache: "no-store" })
       if (txRes.ok) {
         const parsed = await txRes.json()
         if (parsed && parsed.data && parsed.data.length > 0) {
@@ -272,6 +272,56 @@ export async function generateBehaviorProfile(rawAddress: string): Promise<Behav
     }
   } catch (err) {
     console.warn("Unable to fetch Injective transactions:", err)
+  }
+
+  // If the wallet has no transaction history (empty/fake/demo) and zero balance, return a clean zero-state profile
+  if (realTrades.length === 0 && realBalanceInj === 0) {
+    return {
+      address,
+      archetype: "Inactive Wallet",
+      archetypeDescription: "No transaction history detected on Injective networks. All behavioral analytics and stats are set to zero.",
+      scores: {
+        riskDiscipline: 0,
+        emotionalStability: 0,
+        convictionScore: 0,
+        patienceScore: 0,
+        fomoProbability: 0,
+        lossRecoveryAbility: 0,
+      },
+      overallScore: 0,
+      insights: {
+        summary: "This address has zero recorded trading logs on Injective mainnet/testnet. All behavioral profiling metrics are set to zero.",
+        tradingStyle: "N/A - No transaction logs found.",
+        riskBehavior: "N/A - No risk metrics could be computed.",
+        winLossPatterns: "Win rate stands at 0%. No profit or loss logs exist.",
+        holdingBehavior: "Average holding duration is 0 hours. No historical holdings are logged.",
+        positionSizing: "No sizing parameters detected.",
+        volatilityPreferences: "No volatility history logged.",
+        leverageDiscipline: "No leverage actions logged.",
+        marketTiming: "No entry or exit logs exist.",
+        behaviorConsistency: "Consistency rating: N/A.",
+      },
+      strengths: ["Deposit INJ or execute swaps on Helix/DojoSwap to begin logging cognitive strengths."],
+      weaknesses: ["No behavioral risks detected (dormant wallet)."],
+      futureForecast: "Trading logs are automatically synced via Injective RPC. Active trading will compile behavioral intelligence instantly.",
+      stats: {
+        winRate: 0,
+        totalTrades: 0,
+        profitableTrades: 0,
+        lossTrades: 0,
+        avgProfitUsd: 0,
+        avgLossUsd: 0,
+        maxPnLUsd: 0,
+        maxLossUsd: 0,
+        netPnLUsd: 0,
+        volumeTradedUsd: 0,
+      },
+      trades: [],
+      similarTraders: [],
+      isSimulated: true,
+      isTestnet: isTestnet,
+      injBalance: realBalanceInj,
+    }
   }
 
   const seed = getSeed(address)
