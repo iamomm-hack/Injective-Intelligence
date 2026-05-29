@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import { generateBehaviorProfile, BehaviorProfile } from "@/lib/engine"
+import { downloadCardAsImage } from "@/lib/card-downloader"
 import { Header } from "@/components/header"
 import { FooterSection } from "@/components/footer-section"
 import { 
@@ -15,7 +16,8 @@ import {
   Zap,
   Shield,
   Coins,
-  Compass
+  Compass,
+  Download
 } from "lucide-react"
 
 export default function ShareCardPage() {
@@ -29,7 +31,11 @@ export default function ShareCardPage() {
   useEffect(() => {
     if (address) {
       let isMounted = true
-      generateBehaviorProfile(address)
+      fetch(`/api/wallet/${address}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to load profile")
+          return res.json()
+        })
         .then((generated) => {
           if (isMounted) {
             setProfile(generated)
@@ -235,15 +241,23 @@ Check your own behavior report card on Injective Intelligence:`
             <div className="flex flex-col gap-3">
               <button 
                 onClick={handleTweet}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/95 font-bold text-sm shadow-[0_0_15px_rgba(120,252,214,0.25)] transition-all"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/95 font-bold text-sm shadow-[0_0_15px_rgba(120,252,214,0.25)] transition-all hover:-translate-y-0.5"
               >
                 <Twitter className="h-4 w-4 fill-current" />
                 Share to Twitter / X
               </button>
 
               <button 
+                onClick={() => downloadCardAsImage(profile)}
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#0c100e] border border-primary/30 hover:bg-primary/10 text-primary hover:border-primary/50 text-sm font-bold transition-all shadow-[0_0_15px_rgba(120,252,214,0.05)] hover:-translate-y-0.5"
+              >
+                <Download className="h-4 w-4" />
+                Download Card Image
+              </button>
+
+              <button 
                 onClick={handleCopyLink}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#0a0d0c] border border-white/10 hover:border-primary/50 text-foreground text-sm font-semibold transition-all"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#0a0d0c] border border-white/10 hover:border-primary/50 text-foreground text-sm font-semibold transition-all hover:-translate-y-0.5"
               >
                 <Copy className="h-4 w-4" />
                 {copied ? "Link Copied!" : "Copy Share Link"}

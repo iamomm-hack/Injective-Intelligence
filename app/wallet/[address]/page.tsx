@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { generateBehaviorProfile, BehaviorProfile, Trade } from "@/lib/engine"
 import { Header } from "@/components/header"
 import { FooterSection } from "@/components/footer-section"
@@ -23,8 +24,10 @@ import {
   CheckCircle,
   HelpCircle,
   Play,
-  RotateCcw
+  RotateCcw,
+  Download
 } from "lucide-react"
+import { downloadCardAsImage } from "@/lib/card-downloader"
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts"
 
 export default function WalletDashboardPage() {
@@ -45,10 +48,15 @@ export default function WalletDashboardPage() {
   useEffect(() => {
     if (address) {
       let isMounted = true
-      generateBehaviorProfile(address)
+      fetch(`/api/wallet/${address}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to load profile")
+          return res.json()
+        })
         .then((generated) => {
           if (isMounted) {
             setProfile(generated)
+            localStorage.setItem("last_analyzed_address", address)
           }
         })
         .catch((err) => {
@@ -145,12 +153,17 @@ export default function WalletDashboardPage() {
                 </p>
               </div>
             </div>
-            <Link 
-              href="/wallet/inj1qpzk5x3r4z7ux2wzcy5w2vhl9u7t08e6j0fqqt" 
-              className="text-primary hover:text-primary-foreground hover:bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 text-2xs font-semibold uppercase transition-colors shrink-0 self-start sm:self-center"
+            <Button 
+              onClick={() => {
+                const headerBtn = document.querySelector('header button') as HTMLButtonElement
+                if (headerBtn && headerBtn.textContent?.includes("Connect Wallet")) {
+                  headerBtn.click()
+                }
+              }}
+              className="text-primary hover:text-primary-foreground hover:bg-primary/20 bg-transparent border border-primary/30 rounded-full px-4 py-1.5 text-2xs font-semibold uppercase transition-all shrink-0 h-auto self-start sm:self-center"
             >
-              Test with Real Active Wallet →
-            </Link>
+              Connect Real Wallet →
+            </Button>
           </div>
         ) : (
           <div className="w-full bg-primary/10 border border-primary/30 rounded-xl p-4 flex items-center gap-3 font-mono shadow-[0_0_20px_rgba(120,252,214,0.05)]">
@@ -165,7 +178,7 @@ export default function WalletDashboardPage() {
         )}
 
         {/* Top Header Card */}
-        <div className="w-full bg-[#050706]/85 border border-primary/20 backdrop-blur-md rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_0_30px_rgba(120,252,214,0.08)]">
+        <div className="w-full bg-[#050706]/85 border border-primary/20 backdrop-blur-md rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-[0_0_30px_rgba(120,252,214,0.08)] transition-all duration-300 hover:border-primary/45 hover:shadow-[0_0_35px_rgba(120,252,214,0.14)] hover:-translate-y-0.5">
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-3">
               <span className="h-2.5 w-2.5 rounded-full bg-primary animate-pulse-glow" />
@@ -175,7 +188,7 @@ export default function WalletDashboardPage() {
               </span>
             </div>
             
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
               <span className="text-foreground text-sm sm:text-lg font-mono font-bold break-all select-all">
                 {profile.address}
               </span>
@@ -187,6 +200,11 @@ export default function WalletDashboardPage() {
                 <Copy className="h-4 w-4" />
               </button>
               {copied && <span className="text-primary text-2xs font-mono">Copied!</span>}
+              
+              <span className="ml-0 sm:ml-2 px-3 py-1 rounded-md bg-primary/10 border border-primary/25 text-primary text-xs font-mono font-bold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                {profile.injBalance !== undefined ? `${profile.injBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} INJ` : "0.00 INJ"}
+              </span>
             </div>
 
             <p className="text-xs text-muted-foreground max-w-2xl leading-relaxed">
@@ -214,7 +232,7 @@ export default function WalletDashboardPage() {
 
         {/* Highlight Scorecards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:border-primary/35 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(120,252,214,0.06)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Reputation Score</span>
             <div className="flex items-baseline gap-1">
               <span className="text-3xl font-extrabold text-foreground">{profile.overallScore}</span>
@@ -225,7 +243,7 @@ export default function WalletDashboardPage() {
             </div>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:border-primary/35 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(120,252,214,0.06)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Win / Loss Ratio</span>
             <div className="flex items-baseline gap-1">
               <span className="text-3xl font-extrabold text-foreground">{profile.stats.winRate}%</span>
@@ -235,7 +253,7 @@ export default function WalletDashboardPage() {
             </span>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:border-primary/35 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(120,252,214,0.06)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Net PnL</span>
             <div className="flex items-center gap-1">
               {profile.stats.netPnLUsd >= 0 ? (
@@ -252,7 +270,7 @@ export default function WalletDashboardPage() {
             </span>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:border-primary/35 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(120,252,214,0.06)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Primary Archetype</span>
             <span className="text-lg font-bold text-primary truncate uppercase">{profile.archetype}</span>
             <span className="text-2xs text-zinc-500 font-mono">
@@ -291,7 +309,7 @@ export default function WalletDashboardPage() {
             </div>
 
             {/* Tab Contents */}
-            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm min-h-[350px]">
+            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm min-h-[350px] transition-all duration-300 hover:border-white/15 hover:shadow-[0_0_25px_rgba(255,255,255,0.01)]">
               
               {/* TAB 1: OVERVIEW */}
               {activeTab === "overview" && (
@@ -307,7 +325,7 @@ export default function WalletDashboardPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Strengths */}
-                    <div className="space-y-3 bg-emerald-500/[0.02] border border-emerald-500/10 rounded-xl p-4">
+                    <div className="space-y-3 bg-emerald-500/[0.02] border border-emerald-500/10 rounded-xl p-4 transition-all duration-300 hover:border-emerald-500/30 hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(16,185,129,0.04)]">
                       <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs uppercase tracking-wider">
                         <Zap className="h-4 w-4" /> Cognitive Strengths
                       </div>
@@ -322,7 +340,7 @@ export default function WalletDashboardPage() {
                     </div>
 
                     {/* Weaknesses */}
-                    <div className="space-y-3 bg-rose-500/[0.02] border border-rose-500/10 rounded-xl p-4">
+                    <div className="space-y-3 bg-rose-500/[0.02] border border-rose-500/10 rounded-xl p-4 transition-all duration-300 hover:border-rose-500/30 hover:scale-[1.01] hover:shadow-[0_0_20px_rgba(244,63,94,0.04)]">
                       <div className="flex items-center gap-2 text-rose-400 font-semibold text-xs uppercase tracking-wider">
                         <ShieldAlert className="h-4 w-4" /> Psychological Risks
                       </div>
@@ -615,7 +633,7 @@ export default function WalletDashboardPage() {
           <div className="lg:col-span-4 space-y-6">
             
             {/* PnL Performance Card */}
-            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm space-y-4 transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_25px_rgba(120,252,214,0.04)]">
               <div className="flex items-center justify-between border-b border-white/5 pb-2">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-4.5 w-4.5 text-primary" />
@@ -661,7 +679,7 @@ export default function WalletDashboardPage() {
             </div>
 
             {/* RPG Card Mini Preview Box */}
-            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm space-y-4">
+            <div className="bg-[#050706]/85 border border-white/5 rounded-xl p-5 md:p-6 shadow-sm space-y-4 transition-all duration-300 hover:border-primary/20 hover:shadow-[0_0_25px_rgba(120,252,214,0.04)]">
               <div className="flex items-center gap-2 border-b border-white/5 pb-2">
                 <Award className="h-4.5 w-4.5 text-primary" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-300 font-mono">Trader DNA RPG Card</h3>
@@ -697,12 +715,21 @@ export default function WalletDashboardPage() {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => router.push(`/wallet/${profile.address}/share`)}
-                  className="w-full py-2 rounded-lg bg-[#0c100e] hover:bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 text-xs font-semibold tracking-wider uppercase transition-all"
-                >
-                  Generate Share Card
-                </button>
+                <div className="w-full flex flex-col gap-2">
+                  <button
+                    onClick={() => router.push(`/wallet/${profile.address}/share`)}
+                    className="w-full py-2.5 rounded-lg bg-primary text-primary-foreground font-bold hover:bg-primary/90 text-2xs uppercase tracking-wider transition-all hover:-translate-y-0.5"
+                  >
+                    View Share Page
+                  </button>
+                  <button
+                    onClick={() => downloadCardAsImage(profile)}
+                    className="w-full py-2.5 rounded-lg bg-[#0c100e] hover:bg-primary/10 text-primary border border-primary/20 hover:border-primary/40 text-2xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 hover:-translate-y-0.5"
+                  >
+                    <Download className="h-3 w-3" />
+                    Download Image
+                  </button>
+                </div>
               </div>
             </div>
 
