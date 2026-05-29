@@ -33,7 +33,7 @@ const INITIAL_FEED: FeedItem[] = [
   {
     id: "f-1",
     timestamp: new Date(Date.now() - 40000).toISOString(),
-    address: "inj1qpzk5x3r4z7ux2wzcy5w2vhl9u7t08e6j0fqqt",
+    address: "inj1swingsniper00000000000000000000sniper",
     archetype: "Swing Sniper",
     asset: "INJ",
     action: "Accumulated $18,400 INJ at key horizontal support $21.50",
@@ -196,7 +196,7 @@ export default function MarketIntelligencePage() {
 
         {/* Global Stats Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:scale-[1.03] hover:border-primary/30 hover:shadow-[0_0_20px_rgba(120,252,214,0.08)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide flex items-center gap-1.5">
               <Gauge className="h-3.5 w-3.5 text-primary" /> Psychological Index
             </span>
@@ -211,19 +211,19 @@ export default function MarketIntelligencePage() {
             </div>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:scale-[1.03] hover:border-primary/30 hover:shadow-[0_0_20px_rgba(120,252,214,0.08)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Network Avg Leverage</span>
             <span className="text-3xl font-extrabold text-foreground">{avgLeverage.toFixed(1)}x</span>
             <span className="text-2xs text-zinc-500 font-mono">Spot accounts dominate</span>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:scale-[1.03] hover:border-primary/30 hover:shadow-[0_0_20px_rgba(120,252,214,0.08)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Most Active Profile</span>
             <span className="text-lg font-bold text-primary uppercase">Volatility Surfer</span>
             <span className="text-2xs text-zinc-500 font-mono">Due to Talis listings</span>
           </div>
 
-          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28">
+          <div className="bg-[#050706]/75 border border-white/5 rounded-xl p-4 flex flex-col justify-between h-28 transition-all duration-300 hover:scale-[1.03] hover:border-primary/30 hover:shadow-[0_0_20px_rgba(120,252,214,0.08)]">
             <span className="text-muted-foreground text-xs font-mono uppercase tracking-wide">Average Accuracy</span>
             <span className="text-3xl font-extrabold text-foreground">62.8%</span>
             <span className="text-2xs text-zinc-500 font-mono">Profitable margin exits</span>
