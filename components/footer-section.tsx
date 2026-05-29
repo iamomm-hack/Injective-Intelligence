@@ -7,7 +7,10 @@ export function FooterSection() {
     <footer className="w-full max-w-[1320px] mx-auto px-5 flex flex-col md:flex-row justify-between items-start gap-8 md:gap-0 py-10 md:py-[70px]">
       {/* Left Section: Logo, Description, Social Links */}
       <div className="flex flex-col justify-start items-start gap-8 p-4 md:p-8">
-        <div className="flex gap-3 items-stretch justify-center">
+        <div className="flex gap-3 items-center justify-center">
+          <div className="h-6 w-6 rounded overflow-hidden flex items-center justify-center">
+            <img src="/logos/logo.png" alt="Injective Intelligence" className="h-full w-full object-contain" />
+          </div>
           <div className="text-center text-foreground text-xl font-bold tracking-wider uppercase glow-text">Injective Intelligence</div>
         </div>
         <p className="text-muted-foreground text-sm font-medium leading-[18px] text-left">Decoding on-chain behavioral psychology</p>

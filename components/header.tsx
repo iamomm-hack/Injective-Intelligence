@@ -155,8 +155,8 @@ export function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="h-8 w-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:border-primary/60 transition-colors">
-              <BarChart3 className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+            <div className="h-8 w-8 rounded-lg overflow-hidden flex items-center justify-center group-hover:opacity-90 transition-opacity">
+              <img src="/logos/logo.png" alt="Injective Intelligence" className="h-full w-full object-contain" />
             </div>
             <span className="text-foreground text-lg font-bold tracking-wider uppercase glow-text">
               Injective Intelligence
