@@ -43,33 +43,33 @@ const BentoCard = ({ title, description, Component }: BentoCardProps) => (
 export function BentoSection() {
   const cards = [
     {
-      title: "AI-powered code reviews.",
-      description: "Get real-time, smart suggestions for cleaner code.",
+      title: "Trader DNA Archetypes",
+      description: "Classify your trading profile: Momentum Predator, Swing Sniper, Conviction Hunter, or Volatility Surfer.",
       Component: AiCodeReviews,
     },
     {
-      title: "Real-time coding previews",
-      description: "Chat, collaborate, and instantly preview changes together.",
+      title: "Cognitive Performance Scorecard",
+      description: "Identify psychological biases with scores for Risk Discipline, Emotional Stability, and FOMO Probability.",
       Component: RealtimeCodingPreviews,
     },
     {
-      title: "One-click integrations",
-      description: "Easily connect your workflow with popular dev tools.",
+      title: "Cross-DEX Integrations",
+      description: "Aggregates trading logs and actions directly from Injective indexers, Helix, and DojoSwap.",
       Component: OneClickIntegrationsIllustration,
     },
     {
-      title: "Flexible MCP connectivity",
-      description: "Effortlessly manage and configure MCP server access.",
+      title: "Similar Wallet Engine",
+      description: "Compare your trading behaviors against elite Injective addresses and calculate similarity quotients.",
       Component: MCPConnectivityIllustration, // Updated component
     },
     {
-      title: "Launch parallel coding agents", // Swapped position
-      description: "Solve complex problems faster with multiple AI agents.",
+      title: "Future Self Forecasting",
+      description: "Determine how changes to leverage and asset concentration will shift your PnL trajectory.",
       Component: ParallelCodingAgents, // Updated component
     },
     {
-      title: "Deployment made easy", // Swapped position
-      description: "Go from code to live deployment on Vercel instantly.",
+      title: "Live Market Feed",
+      description: "Receive real-time notifications about changing trading behavior patterns on the Injective network.",
       Component: EasyDeployment,
     },
   ]
@@ -80,12 +80,11 @@ export function BentoSection() {
         <div className="w-[547px] h-[938px] absolute top-[614px] left-[80px] origin-top-left rotate-[-33.39deg] bg-primary/10 blur-[130px] z-0" />
         <div className="self-stretch py-8 md:py-14 flex flex-col justify-center items-center gap-2 z-10">
           <div className="flex flex-col justify-start items-center gap-4">
-            <h2 className="w-full max-w-[655px] text-center text-foreground text-4xl md:text-6xl font-semibold leading-tight md:leading-[66px]">
-              Empower Your Workflow with AI
+            <h2 className="w-full max-w-[655px] text-center text-foreground text-4xl md:text-6xl font-semibold leading-tight md:leading-[66px] uppercase tracking-wide">
+              Behavioral Analytics Suite
             </h2>
             <p className="w-full max-w-[600px] text-center text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
-              Ask your AI Agent for real-time collaboration, seamless integrations, and actionable insights to
-              streamline your operations.
+              Explore the advanced features powering the first trader psychology profile engine on Injective.
             </p>
           </div>
         </div>

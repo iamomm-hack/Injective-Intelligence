@@ -3,7 +3,7 @@ import Image from "next/image"
 const testimonials = [
   {
     quote:
-      "The real-time code suggestions from Pointer feel like having a senior engineer reviewing every line of code as you write. The accuracy of its recommendations has improved our overall code quality, reduced review time.",
+      "The behavioral scorecards from Injective Intelligence feel like having a trading psychologist audit every transaction you make. The insights into our leverage discipline have dramatically reduced our liquidation losses.",
     name: "Annette Black",
     company: "Sony",
     avatar: "/images/avatars/annette-black.png",
@@ -11,7 +11,7 @@ const testimonials = [
   },
   {
     quote:
-      "Integrating Pointer into our stack was smooth, and the MCP server connections saved us days of configuration work",
+      "Running analysis on our historical addresses was instant, and the DEX integration saved us hours of custom database compiling.",
     name: "Dianne Russell",
     company: "McDonald's",
     avatar: "/images/avatars/dianne-russell.png",
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     quote:
-      "Pointer’s multi-agent coding feature has been a game changer. We’re fixing complex bugs in hours instead of spending entire sprints on them.",
+      "Injective Intelligence’s Similar Trader matching has been a game changer. We're identifying alpha traders and replicating their accumulation phases.",
     name: "Cameron Williamson",
     company: "IBM",
     avatar: "/images/avatars/cameron-williamson.png",
@@ -27,7 +27,7 @@ const testimonials = [
   },
   {
     quote:
-      "We no longer juggle multiple tools. Pointer brought all our integrations together in one place, which simplified our entire workflow.",
+      "We no longer parse multiple raw block explorers. Injective Intelligence brings all our DEX metrics together in one sleek dashboard.",
     name: "Robert Fox",
     company: "MasterCard",
     avatar: "/images/avatars/robert-fox.png",
@@ -35,7 +35,7 @@ const testimonials = [
   },
   {
     quote:
-      "We started with the free plan just to test it out, but within a week we upgraded to Pro. Now, we can’t imagine coding without it",
+      "We started with the free lookups to audit our old wallet, but immediately upgraded to Pro. Now we run DNA audits on every wallet we interact with.",
     name: "Darlene Robertson",
     company: "Ferrari",
     avatar: "/images/avatars/darlene-robertson.png",
@@ -43,7 +43,7 @@ const testimonials = [
   },
   {
     quote:
-      "Collaborative coding feels effortless now. With Pointer’s real-time previews, pair programming has become faster and more productive.",
+      "Understanding trading biases feels effortless now. With Injective Intelligence's cognitive metrics, team review of trades is much more productive.",
     name: "Cody Fisher",
     company: "Apple",
     avatar: "/images/avatars/cody-fisher.png",
@@ -51,7 +51,7 @@ const testimonials = [
   },
   {
     quote:
-      "Deploying on Vercel with Pointer was not just simple, it felt seamless. We went from coding to seeing our changes live in minutes without worrying about build pipelines or configuration issues.",
+      "Sharing our RPG report cards with Injective Intelligence was not just simple, it felt seamless. We went from auditing our wallet to posting our card live in minutes.",
     name: "Albert Flores",
     company: "Louis Vuitton",
     avatar: "/images/avatars/albert-flores.png",
@@ -140,12 +140,12 @@ export function TestimonialGridSection() {
     <section className="w-full px-5 overflow-hidden flex flex-col justify-start py-6 md:py-8 lg:py-14">
       <div className="self-stretch py-6 md:py-8 lg:py-14 flex flex-col justify-center items-center gap-2">
         <div className="flex flex-col justify-start items-center gap-4">
-          <h2 className="text-center text-foreground text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight md:leading-tight lg:leading-[40px]">
-            Coding made effortless
+          <h2 className="text-center text-foreground text-3xl md:text-4xl lg:text-[40px] font-semibold leading-tight md:leading-tight lg:leading-[40px] uppercase tracking-wide">
+            Trading psychology decoded
           </h2>
           <p className="self-stretch text-center text-muted-foreground text-sm md:text-sm lg:text-base font-medium leading-[18.20px] md:leading-relaxed lg:leading-relaxed">
-            {"Hear how developers ship products faster, collaborate seamlessly,"} <br />{" "}
-            {"and build with confidence using Pointer's powerful AI tools"}
+            {"Hear how traders identify psychological biases, improve discipline,"} <br />{" "}
+            {"and trade with confidence using Injective Intelligence"}
           </p>
         </div>
       </div>
