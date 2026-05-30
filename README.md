@@ -9,6 +9,12 @@
 
 [Features](#-features) • [Architecture](#-architecture) • [Tech Stack](#-tech-stack) • [Injective Synergy](#-the-injective-synergy-on-chain-integration) • [API Reference](#-api-reference) • [Quick Start](#-quick-start) • [Contributing](#-contributing)
 
+> [!IMPORTANT]
+> **Overview**:
+> - **What the project does & how users interact with it**: Injective Intelligence is the first AI-powered behavioral profiling dashboard for Injective. Users input any wallet address (or connect Keplr) to inspect a decrypted visual report of their trading archetype, psychological scorecards, risk indices, and transaction logs, or download them as collectible RPG cards.
+> - **How AI is used**: The platform uses an on-chain behavioral profiling engine that processes gas logs, trade types, timestamps, and order histories through heuristic classification algorithms to map wallet footprints to dynamic psychological metrics (Risk, Conviction, FOMO) and trader DNA archetypes.
+> - **Injective Integration**: Integrated natively with Injective Sentry LCD nodes (`/cosmos/bank/v1beta1/balances`) and indexers (`grpc-web` Sentries) to fetch real-time wallet balances, verify active sequences, and capture historical transactions.
+
 ---
 
 ## 🎯 Philosophy: Why Injective Intelligence?
